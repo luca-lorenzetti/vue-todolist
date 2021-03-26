@@ -10,6 +10,10 @@
     <!-- My Style -->
     <link rel="stylesheet" href="css/style.css">
 
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,7 +24,20 @@
 
     <div id="root">
 
-        
+        <div class="content">
+            <div class="title">
+                <h1>{{titleSite}}</h1>
+                <div class="list" v-show="toDoList.length > 0">
+                    <ul>
+                        <li v-for="(item,index) in toDoList"><p>{{item}} <span class="delete" @click="deleteItem(index)"><i class="fas fa-trash-alt"></i></span></p></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="inputs">
+            <input name="" id="todo" v-model="toDo" placeholder="Enter todo" v-on:keyup.enter="checkInput">
+        </div>
     </div>
         <!-- jQuery 3.6.0 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
