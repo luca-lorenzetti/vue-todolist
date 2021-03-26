@@ -23,20 +23,28 @@
 <body>
 
     <div id="root">
+        <!-- Modal -->
+        <div class="modal" :class="{'active_modal': modal}" @keydown.esc="toggleModal">
+            <div class="inputs">
+                <input maxlength="100" v-model="toDoEdit" placeholder="Enter todo" v-on:keyup.enter="checkInput(true)">
+            </div>
+        </div>
+        <!-- /Modal -->
 
         <div class="content">
             <div class="title">
                 <h1>{{titleSite}}</h1>
                 <div class="list" v-show="toDoList.length > 0">
                     <ul>
-                        <li v-for="(item,index) in toDoList"><p>{{item}} <span class="delete" @click="deleteItem(index)"><i class="fas fa-trash-alt"></i></span></p></li>
+                        <li v-for="(item,index) in toDoList"><small>{{item}}</small> <p><span class="edit" @click="toggleModal(index)"><i class="fas fa-edit"></i></span>
+                                                                         <span class="delete" @click="deleteItem(index)"><i class="fas fa-trash-alt"></i></span></p></li>
                     </ul>
                 </div>
             </div>
 
         </div>
         <div class="inputs">
-            <input name="" id="todo" v-model="toDo" placeholder="Enter todo" v-on:keyup.enter="checkInput">
+            <input maxlength="100" id="todo" v-model="toDo" placeholder="Enter todo" v-on:keyup.enter="checkInput">
         </div>
     </div>
         <!-- jQuery 3.6.0 -->

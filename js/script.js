@@ -9,20 +9,44 @@ var app = new Vue({
     data: {
         titleSite: "ToDo List",
         toDoList:["Comprare il pane","Comprare il latte"],
-        toDo: ""
+        toDo: "",
+        toDoEdit: "",
+        indexEdit: 0,
+        modal: false
     },
     methods:{
-      checkInput: function(){
-        if(this.toDoList.length > 0){
-          this.enterToDo();
+      checkInput: function(edit){
+        if(edit){
+          if( this.toDoEdit != "" && isNaN(this.toDoEdit) ){
+            this.enterToDo(this.toDoEdit.toLowerCase(),edit);
+            this.toggleModal();
+          }
+        }
+        else if( this.toDo != "" && isNaN(this.toDo) ){
+          this.enterToDo(this.toDo.toLowerCase(),edit);
         }
       },
-      enterToDo: function(){
-        
+      enterToDo: function(elem,edit){
+        if(edit){
+          this.toDoList[this.indexEdit] = this.toDoEdit;
+          this.toDoEdit = "";
+        }
+        else{
+          this.toDoList.push(elem.charAt(0).toUpperCase() + elem.slice(1))
+          this.toDo = "";
+        }
       },
       deleteItem: function(index){
         console.log(`Elimino l'elemneto ${index}`)
         this.toDoList.splice(index,1);
+      },
+      toggleModal: function(index){
+        this.modal = !this.modal;
+
+        if( this.modal){
+          this.toDoEdit = this.toDoList[index];
+          this.indexEdit = index;
+        }
       }
     }
   })
